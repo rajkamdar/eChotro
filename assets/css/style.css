@@ -13,6 +13,7 @@
   height:500px;
   padding-top: 50px;
   border:3px solid;
+
 }
 .div-signin{
   height:500px;
@@ -61,5 +62,30 @@
   width:65%;
 }
 .divReg{
-  padding-top: 50px;
+  padding-top: 170px;
+  text-align: center;
+  height: inherit;
+}
+.const{
+  padding-top: 120px;
+  text-align:center;
+  width: 100%;
+}
+.navbarProfileName{
+  float:right;
+  font-size: 20px;
+}
+#h1Reg{
+  font-size:72px;
+  font-family: century gothic;
+  color:#337ab7;
+}
+#h3Reg{
+  color:#286090;
+  font-size: 36px;
+}
+#imgConst{
+  max-width:100%;
+  display:block;
+  height:auto;
 }
