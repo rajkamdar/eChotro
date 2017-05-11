@@ -3,6 +3,7 @@ package com.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -33,11 +34,15 @@ public class UserDAO {
 	public UserBean authenticateUser(String email,String password) {
 		Session session = SessionFactoryUtils.getSession();
 		Transaction transaction = session.beginTransaction();
-		UserBean userBean;
+		UserBean userBean = null;
 		transaction.begin();
 		try {
-			 userBean=(UserBean) session.createQuery(" from user_master where email="+email+" and password="+password).list().get(0);
+			Query query=session.createQuery(" from user_master where email=? and password=?");
+			query.setString(0, email);
+			query.setString(1, password);
+			 userBean= (UserBean) query.uniqueResult();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		} finally {
 			session.close();

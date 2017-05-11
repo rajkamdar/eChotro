@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>eChotro | Login</title>
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css">
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top div-nav">
@@ -30,14 +31,16 @@
   </div>
   <div class="col-md-6 col-sm-6 div-signin">
     <h1> Login </h1>
-    <form class="form-signin">
+    <form class="form-signin" action="LoginController" method="post">
+    ${msg}
       <center>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="*************" required><br>
-      <button type="button" class="btn btn-primary btn-Loginform">LOGIN</button>
-      <a href="register.html" class="btn btn-primary btn-Loginform " role="button">REGISTER</a>
+      <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" required autofocus>
+      <input type="hidden" name="action" value="login">
+      <input type="password" id="inputPassword" class="form-control" name="password" placeholder="*************" required><br>
+      <input type="submit" class="btn btn-primary btn-Loginform" value="LOGIN">
+      
+      <a href="${pageContext.request.contextPath}/register" class="btn btn-primary btn-Loginform " role="button">REGISTER</a>
+      
     </center>
     </form>
   </div>
