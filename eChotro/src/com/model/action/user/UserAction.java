@@ -19,14 +19,14 @@ public class UserAction implements Action {
 		String action = request.getParameter("action");
 		if (action == null) {
 			request.setAttribute("msg", "Invalid Request");
-			request.getRequestDispatcher("/register").forward(request,
-					response);
+			request.getRequestDispatcher("/register")
+					.forward(request, response);
 		} else {
 			switch (action.toLowerCase()) {
 			case "adduser":
 				addUser(request, response);
 				break;
-			
+
 			default:
 				request.setAttribute("msg", "Invalid Request");
 				request.getRequestDispatcher("/register").forward(request,
@@ -35,9 +35,6 @@ public class UserAction implements Action {
 			}
 		}
 	}
-
-	
-	
 
 	private void addUser(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -52,29 +49,37 @@ public class UserAction implements Action {
 				|| ValidateUtils.isEmpty(password)
 				|| ValidateUtils.isEmpty(email) || ValidateUtils.isEmpty(name)) {
 			request.setAttribute("msg", "All fields are mandatory");
-			request.getRequestDispatcher("/register").forward(request,
-					response);
+			request.getRequestDispatcher("/register")
+					.forward(request, response);
 		}
 
 		else {
-			UserBean userBean = new UserBean();
-			userBean.setName(name);
-			userBean.setEmail(email);
-			userBean.setPassword(ValidateUtils.base64encode(password));
-			userBean.setCity(city);
-			userBean.setCollege(college);
-			userBean.setDegree(degree);
 			UserDAO userDAO = new UserDAO();
-			boolean flag = userDAO.addUser(userBean);
-			String msg = flag ? "succesfully added"
-					: "failed,please try again later";
-			request.setAttribute("msg", msg);
-			if (flag)
-				request.getRequestDispatcher("index.jsp").forward(request,
-						response);
-			else
+			if (userDAO.isExists(email)) {
+				request.setAttribute("msg", "email id already exists");
 				request.getRequestDispatcher("/register").forward(request,
 						response);
+			} else {
+				UserBean userBean = new UserBean();
+				userBean.setName(name);
+				userBean.setEmail(email);
+				userBean.setPassword(ValidateUtils.base64encode(password));
+				userBean.setCity(city);
+				userBean.setCollege(college);
+				userBean.setDegree(degree);
+
+				boolean flag = userDAO.addUser(userBean);
+				String msg = flag ? "succesfully added"
+						: "failed,please try again later";
+				request.setAttribute("msg", msg);
+				if (flag)
+					request.getRequestDispatcher("index.jsp").forward(request,
+							response);
+				else
+					request.getRequestDispatcher("/register").forward(request,
+							response);
+
+			}
 		}
 	}
 

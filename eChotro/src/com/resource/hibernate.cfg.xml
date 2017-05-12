@@ -12,5 +12,6 @@
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
 		<mapping class="com.model.bean.UserBean" />
+		<mapping class="com.model.bean.UtilityBean" />
 		</session-factory>
 </hibernate-configuration>
